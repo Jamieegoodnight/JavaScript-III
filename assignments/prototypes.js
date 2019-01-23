@@ -136,9 +136,80 @@ Humanoid.prototype.greet=function(){
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+// I didn't use the inheritancy from Humanoids, I just created my own constructor function (Super) and did it that way! I hope that's okay, since I still did use inheritancy and met the other criteria. 
+
+  function Super(obj){
+    this.name=obj.name;
+    this.health=obj.health;
+    this.energy=obj.energy;
+  }
+  
+  Super.prototype.recover=function(){
+    this.health += .2;
+    this.energy += .2;
+    console.log(`${this.name} tries to catch their breath!`)
+    return `Health: ${this.health}, Energy: ${this.energy}`
+  };
+  
+  function Villain(vilobj){
+    Super.call(this, vilobj);
+  }
+  
+  Villain.prototype=Object.create(Super.prototype);
+  
+  Villain.prototype.suprememegameltinglaser=function(target){
+    this.energy -= .3;
+    target.health -= .3;
+    if (target.health>0){
+      console.log (`Giga Annihilator 10,000 used their Supreme Mega Melting Laser! ${target.name} only has ${target.health} health left!`)
+    } else {
+      console.log(`Giga Annihilator 10,000 melted ${target.name}!`)
+    };
+    
+  };
+  
+  function Hero(herobj){
+    Super.call(this, herobj);
+  }
+  
+  Hero.prototype=Object.create(Super.prototype);
+  
+  Hero.prototype.peacefulFistOfDestruction=function(target){
+    this.energy -= .2;
+    target.health -= .2;
+    if (target.health>0){
+      console.log (`The Peaceful Fist peacefully hits foe with a Peaceful Fist of Destruction! ${target.name} only has ${target.health} health left!`)
+    } else {
+      console.log(`The Peaceful Fist knocked ${target.name}'s head off!'`)
+    };
+  };
+  
+  
+  const gigaAnnihilator10000=new Villain({
+    name: "Giga Annihilator 10,000",
+    health: 1.0,
+    energy: 1.0
+  });
+  
+  const theFistOfPeace=new Hero({
+    name: "The Fist of Peace",
+    health: 1.0,
+    energy: 1.0
+  });
+  
+  
+  console.log(theFistOfPeace);
+  
+  theFistOfPeace.peacefulFistOfDestruction(gigaAnnihilator10000);
+  console.log(gigaAnnihilator10000);
+  theFistOfPeace.peacefulFistOfDestruction(gigaAnnihilator10000);
+  theFistOfPeace.peacefulFistOfDestruction(gigaAnnihilator10000);
+  console.log(gigaAnnihilator10000);
+  theFistOfPeace.peacefulFistOfDestruction(gigaAnnihilator10000);
