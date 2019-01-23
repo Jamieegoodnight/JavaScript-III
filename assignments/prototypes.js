@@ -185,7 +185,7 @@ Humanoid.prototype.greet=function(){
     this.energy -= .2;
     target.health -= .2;
     if (target.health>0){
-      console.log (`The Peaceful Fist peacefully hits foe with a Peaceful Fist of Destruction! ${target.name} only has ${target.health} health left!`)
+      console.log (`The Peaceful Fist peacefully hits his foe with a Peaceful Fist of Destruction! ${target.name} only has ${target.health} health left!`)
     } else {
       console.log(`The Peaceful Fist knocked ${target.name}'s head off!'`)
     };
